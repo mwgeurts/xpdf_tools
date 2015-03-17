@@ -68,7 +68,7 @@ if exist('Event', 'file') == 2
     tic;
 end
     
-% Initialize return variable
+% Initialize empty return variable
 info = struct;
 
 % Execute pdfinfo with -box flag, retrieving results
@@ -239,5 +239,5 @@ clear status cmdout arr;
 
 % Log start
 if exist('Event', 'file') == 2
-    Event('Exctraction completed successfully in %0.3f seconds', toc);
+    Event('Extraction completed successfully in %0.3f seconds', toc);
 end
