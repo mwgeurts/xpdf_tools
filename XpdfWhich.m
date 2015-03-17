@@ -4,10 +4,11 @@ function executable = XpdfWhich(command)
 % other functions to determine how to execute the command.  The command is
 % first searched for in the system path; if not found, the function will
 % successively search through each path provided in the paths variable 
-% until it is found.
+% until it is found. 
 %
 % This function is compatible with linux, Macintosh OSX, and Windows 7 and
-% later operating systems.
+% later operating systems. Xpdf is Copyrighted (1996-2014) by Glyph & Cog, 
+% LLC.
 %
 % The following variables are required for proper execution: 
 %   command: string containing the Xpdf command to be executed (pdftotext)
@@ -114,4 +115,3 @@ for i = 1:size(paths, 1)
         return;
     end
 end
-
