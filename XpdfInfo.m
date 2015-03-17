@@ -4,7 +4,7 @@ function info = XpdfInfo(varargin)
 % structure containing the PDF information returned from this Xpdf command.
 % See below for the information retrieved.  This function was created from
 % pdfinfo version 3.04.  pdfinfo is Copyrighted (1996-2014) by Glyph & Cog, 
-% LLC.
+% LLC and distributed under the GNU GPL version 2 license.
 %
 % The following variables are required for proper execution: 
 %   varargin: cell array of strings containing the full or PDF file name. 
@@ -54,6 +54,7 @@ end
 
 % Check that the file exists
 if exist(fullfile(varargin{1:nargin}), 'file') ~= 2
+    
     if exist('Event', 'file') == 2
         Event(['The file ', fullfile(varargin{1:nargin}), ' was not found'], ...
             'ERROR');
@@ -235,7 +236,7 @@ else
 end
 
 % Clear temporary variables
-clear status cmdout arr;
+clear status cmdout arr i;
 
 % Log start
 if exist('Event', 'file') == 2

@@ -8,7 +8,7 @@ function executable = XpdfWhich(command)
 %
 % This function is compatible with linux, Macintosh OSX, and Windows 7 and
 % later operating systems. Xpdf is Copyrighted (1996-2014) by Glyph & Cog, 
-% LLC.
+% LLC and distributed under the GNU GPL version 2 license.
 %
 % The following variables are required for proper execution: 
 %   command: string containing the Xpdf command to be executed (pdftotext)

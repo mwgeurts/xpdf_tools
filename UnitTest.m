@@ -43,16 +43,10 @@ function varargout = UnitTest(varargin)
 %
 % Below is an example of how this function is used:
 %
-%   % Declare path to application and test suite
-%   app = 'XpdfInfo.m';
-%   test = '../test_data/RPC_Phantom.pdf';
-%
-%   % Load reference data from .mat file
-%   reference = load('../test_data/RPC_Phantom.mat', '-mat');
-%
 %   % Execute unit test, storing the test results
-%   [preamble, table, footnotes] = UnitTest(app, test, reference);
-%
+%   [preamble, table, footnotes] = UnitTest('', ...
+%       '../test_data/RPC_Phantom.pdf', 
+%       load('../test_data/RPC_Phantom.mat'));
 %
 % Author: Mark Geurts, mark.w.geurts@gmail.com
 % Copyright (C) 2015 University of Wisconsin Board of Regents
@@ -294,11 +288,11 @@ catch
 end
 
 % Add application load result
-results{size(results,1)+1,1} = '1';
+results{size(results,1)+1,1} = '4';
 results{size(results,1),2} = 'XpdfText Result Identical';
 results{size(results,1),3} = pf;
 
-%% TEST 2/3: XpdfText Code Analyzer Messages, Cyclomatic Complexity
+%% TEST 5/6: XpdfText Code Analyzer Messages, Cyclomatic Complexity
 %
 % DESCRIPTION: This unit test uses the checkcode() MATLAB function to check
 %   each function used by the application and return any Code Analyzer
@@ -362,13 +356,137 @@ for i = 1:length(fList)
 end
 
 % Add code analyzer messages counter to results
-results{size(results,1)+1,1} = '2';
+results{size(results,1)+1,1} = '5';
 results{size(results,1),2} = 'XpdfText Code Analyzer Messages';
 results{size(results,1),3} = sprintf('%i', mess);
 
 % Add complexity results
-results{size(results,1)+1,1} = '3';
+results{size(results,1)+1,1} = '6';
 results{size(results,1),2} = 'XpdfText Cumulative Cyclomatic Complexity';
+results{size(results,1),3} = sprintf('%i', comp);
+
+%% TEST 7: XpdfPNG Unit Test
+%
+% DESCRIPTION: This unit test verifies that XpdfPNG runs without error and
+% returns valid data.
+%
+% RELEVANT REQUIREMENTS: none
+%
+% INPUT DATA: input file RPC_Phantom.pdf, varargin{2}.images 
+%
+% CONDITION A (+): 
+%
+% CONDITION B (-): 
+
+% Execute XpdfPNG in try/catch statement
+try
+    images = XpdfPNG(varargin{2});
+    pf = pass;
+    
+    % If reference data exists
+    if nargin == 3
+        
+        % If current value equals the reference
+        if ~isequal(images, varargin{3}.images)
+            pf = fail;
+        end
+    end
+catch
+    pf = fail;
+end
+
+% Execute XpdfPNG with bad file
+try
+    XpdfPNG('asd');
+    pf = fail;
+catch
+    % Test passes if an error is thrown
+end
+
+% Execute XpdfPNG with no arguments
+try
+    XpdfPNG();
+    pf = fail;
+catch
+    % Test passes if an error is thrown
+end
+
+% Add application load result
+results{size(results,1)+1,1} = '7';
+results{size(results,1),2} = 'XpdfPNG Result Identical';
+results{size(results,1),3} = pf;
+
+%% TEST 8/9: XpdfPNG Code Analyzer Messages, Cyclomatic Complexity
+%
+% DESCRIPTION: This unit test uses the checkcode() MATLAB function to check
+%   each function used by the application and return any Code Analyzer
+%   messages that result.  The cumulative cyclomatic complexity is also
+%   computed for each function and summed to determine the total
+%   application complexity.  Although this test does not reference any
+%   particular requirements, it is used during development to help identify
+%   high risk code.
+%
+% RELEVANT REQUIREMENTS: none 
+%
+% INPUT DATA: No input data required
+%
+% CONDITION A (+): Report any code analyzer messages for all functions
+%   called by XpdfPNG
+%
+% CONDITION B (+): Report the cumulative cyclomatic complexity for all
+%   functions called by XpdfPNG
+
+% Search for required functions
+fList = matlab.codetools.requiredFilesAndProducts('XpdfPNG.m');
+
+% Initialize complexity and messages counters
+comp = 0;
+mess = 0;
+
+% Loop through each dependency
+for i = 1:length(fList)
+    
+    % Execute checkcode
+    inform = checkcode(fList{i}, '-cyc');
+    
+    % Loop through results
+    for j = 1:length(inform)
+       
+        % Check for McCabe complexity output
+        c = regexp(inform(j).message, ...
+            '^The McCabe complexity .+ is ([0-9]+)\.$', 'tokens');
+        
+        % If regular expression was found
+        if ~isempty(c)
+            
+            % Add complexity
+            comp = comp + str2double(c{1});
+            
+        else
+            
+            % If not an invalid code message
+            if ~strncmp(inform(j).message, 'Filename', 8)
+                
+                % Log message
+                Event(sprintf('%s in %s', inform(j).message, fList{i}), ...
+                    'CHCK');
+
+                % Add as code analyzer message
+                mess = mess + 1;
+            end
+        end
+        
+    end
+end
+
+% Add code analyzer messages counter to results
+results{size(results,1)+1,1} = '8';
+results{size(results,1),2} = 'XpdfPNG Code Analyzer Messages';
+results{size(results,1),3} = sprintf('%i', mess);
+
+% Add complexity results
+results{size(results,1)+1,1} = '9';
+results{size(results,1),2} = 'XpdfPNG Cumulative Cyclomatic Complexity';
 results{size(results,1),3} = sprintf('%i', comp);
 
 %% Finish up
