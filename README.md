@@ -18,4 +18,4 @@ Please see the [wiki](../../wiki) for basic usage and other documentation on usi
 
 ## License
 
-Released under the GNU GPL v3.0 License.  See the [license](license) file for further details.  Xpdf is distributed under the GNU GPL v2.0 license.
+Released under the GNU GPL v3.0 License.  See the [LICENSE](LICENSE) file for further details.  Xpdf is distributed under the GNU GPL v2.0 license.
