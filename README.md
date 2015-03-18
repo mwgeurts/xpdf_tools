@@ -10,11 +10,11 @@ The Xpdf Extensions for MATLAB are a compilation of functions that execute and r
 
 ## Installation
 
-To install the Xpdf Extensions for MATLAB, copy all MATLAB .m files from this repository into your MATLAB path. If installing as a submodule into another git repository, execute `git submodule add https://github.com/mwgeurts/xpdf_tools`.
+To install the Xpdf Extensions for MATLAB, copy all MATLAB .m files from this repository into your MATLAB path. If installing as a submodule into another git repository, execute `git submodule add https://github.com/mwgeurts/xpdf_tools`.  
 
 ## Usage and Documentation
 
-Please see the [wiki](../../wiki) for basic usage and other documentation on using the Xpdf Extensions for MATLAB.
+Please see the [wiki](../../wiki) for basic usage and other documentation on using the Xpdf Extensions for MATLAB.  Note that the Xpdf utilities are not provided as part of this repository and must be separately [configured](../../wiki/Xpdf Configuration) to work with these extensions.
 
 ## License
 
