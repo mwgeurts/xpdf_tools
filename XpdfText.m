@@ -10,7 +10,7 @@ function text = XpdfText(varargin)
 %   varargin: cell array of strings containing the full or PDF file name. 
 %       The name can be provided either as a single string (in varargin{1})
 %       containing the path and file, or as separate strings.  If separate 
-%       strings are provided, they are concatenated using fullfile();
+%       strings are provided, they are concatenated using fullfile()
 %
 % The following variables are returned upon successful completion:
 %   text: an n x 1 cell array of cells containing the text data for n 

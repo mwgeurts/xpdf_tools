@@ -13,7 +13,8 @@ function varargout = UnitTest(varargin)
 %       is the reference and therefore all comparison tests will "Pass".
 %
 % The following variables are returned upon succesful completion when input 
-% arguments are provided:
+% arguments are provided. If no return variables are given, the results
+% will be printed to stdout.
 %   varargout{1}: cell array of strings containing preamble text that
 %       summarizes the test, where each cell is a line. This text will
 %       precede the results table in the report.
@@ -43,10 +44,19 @@ function varargout = UnitTest(varargin)
 %
 % Below is an example of how this function is used:
 %
+%   % Execute unit test, printing the test results to stdout
+%   UnitTest('', '../test_data/RPC_Phantom.pdf', ...
+%       load('../test_data/RPC_Phantom.mat'));
+%
 %   % Execute unit test, storing the test results
 %   [preamble, table, footnotes] = UnitTest('', ...
-%       '../test_data/RPC_Phantom.pdf', 
+%       '../test_data/RPC_Phantom.pdf', ...
 %       load('../test_data/RPC_Phantom.mat'));
+%
+%   % Execute unit test again but without reference data, this time storing 
+%   % the output from UnitTest as a new reference file
+%   [preamble, table, footnotes, newreference] = ...
+%       UnitTest('', '../test_data/RPC_Phantom.pdf');
 %
 % Author: Mark Geurts, mark.w.geurts@gmail.com
 % Copyright (C) 2015 University of Wisconsin Board of Regents
@@ -69,23 +79,21 @@ function varargout = UnitTest(varargin)
 if nargin == 0
     
     % Declare the application filename
-    varargout{1} = '*.m';
+    varargout{1} = '';
 
     % Declare current version directory
-    varargout{2} = './';
+    varargout{2} = '';
 
     % Declare prior version directories
     varargout{3} = {};
 
     % Declare location of test data. Column 1 is the name of the 
     % test suite, column 2 is the absolute path to the file(s)
-    varargout{4} = {
-        'RPC Phantom'     '../test_data/RPC_Phantom.pdf'
-    };
+    varargout{4} = {};
 
     % Declare name of report file (will be appended by _R201XX.md based on 
     % the MATLAB version)
-    varargout{5} = '../test_reports/unit_test';
+    varargout{5} = '';
     
     % Return to invoking function
     return;
@@ -95,7 +103,7 @@ end
 % Initialize static test result text variables
 pass = 'Pass';
 fail = 'Fail';
-unk = 'N/A';
+unk = 'N/A'; %#ok<NASGU>
 
 % Initialize preamble text
 preamble = {
@@ -162,6 +170,11 @@ try
 catch
     % Test passes if an error is thrown
 end
+
+% Add header to results table
+results{size(results,1)+1,1} = 'ID';
+results{size(results,1),2} = 'Test Case';
+results{size(results,1),3} = 'Result';
 
 % Add application load result
 results{size(results,1)+1,1} = '1';
@@ -493,10 +506,42 @@ results{size(results,1),3} = sprintf('%i', comp);
 % Close all figures
 close all force;
 
-% Store return variables
-varargout{1} = preamble;
-varargout{2} = results;
-varargout{3} = footnotes;
-if nargout == 4
-    varargout{4} = reference;
+% If no return variables are present, print the results
+if nargout == 0
+    
+    % Print preamble
+    for j = 1:length(preamble)
+        fprintf('%s\n', preamble{j});
+    end
+    fprintf('\n');
+    
+    % Loop through each table row
+    for j = 1:size(results,1)
+        
+        % Print table row
+        fprintf('| %s |\n', strjoin(results(j,:), ' | '));
+       
+        % If this is the first column
+        if j == 1
+            
+            % Also print a separator row
+            fprintf('|%s\n', repmat('----|', 1, size(results,2)));
+        end
+
+    end
+    fprintf('\n');
+    
+    % Print footnotes
+    for j = 1:length(footnotes) 
+        fprintf('%s<br>\n', footnotes{j});
+    end
+    
+% Otherwise, return the results as variables    
+else
+
+    % Store return variables
+    if nargout >= 1; varargout{1} = preamble; end
+    if nargout >= 2; varargout{2} = results; end
+    if nargout >= 3; varargout{3} = footnotes; end
+    if nargout >= 4; varargout{4} = reference; end
 end

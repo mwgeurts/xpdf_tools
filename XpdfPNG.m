@@ -10,7 +10,7 @@ function images = XpdfPNG(varargin)
 %   varargin: cell array of strings containing the full or PDF file name. 
 %       The name can be provided either as a single string (in varargin{1})
 %       containing the path and file, or as separate strings.  If separate 
-%       strings are provided, they are concatenated using fullfile();
+%       strings are provided, they are concatenated using fullfile()
 %
 % The following variables are returned upon successful completion:
 %   images: an p x 1 cell array of images containing the 300 DPI PNG images 

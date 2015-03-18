@@ -7,14 +7,14 @@ function info = XpdfInfo(varargin)
 % LLC and distributed under the GNU GPL version 2 license.
 %
 % The following variables are required for proper execution: 
-%   varargin: cell array of strings containing the full or PDF file name. 
+%   varargin: cell array of strings containing the full PDF file name. 
 %       The name can be provided either as a single string (in varargin{1})
 %       containing the path and file, or as separate strings.  If separate 
-%       strings are provided, they are concatenated using fullfile();
+%       strings are provided, they are concatenated using fullfile()
 %
 % The following variables are returned upon successful completion:
 %   info: a structure containing the following fields: title, subject,
-%       keywords, author, creator, producer, creationdate, moddate, tagges,
+%       keywords, author, creator, producer, creationdate, moddate, tagged,
 %       form, pages, encrypted, pagesize, mediabox, cropbox, bleedbox, 
 %       trimbox, artbox, filesize, optimized, and version.  Note that page
 %       size is in units of pts, while file size is in bytes.
