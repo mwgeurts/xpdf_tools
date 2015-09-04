@@ -117,5 +117,5 @@ clear status tmpName i;
 
 % Log start
 if exist('Event', 'file') == 2
-    Event('Extraction completed successfully in %0.3f seconds', toc);
+    Event(sprintf('Extraction completed successfully in %0.3f seconds', toc));
 end
