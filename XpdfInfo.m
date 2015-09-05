@@ -62,12 +62,6 @@ if exist(fullfile(varargin{1:nargin}), 'file') ~= 2
         error(['The file ', fullfile(varargin{1:nargin}), ' was not found']);
     end
 end
-
-% Log start
-if exist('Event', 'file') == 2
-    Event(['Extracting pdf info from ', fullfile(varargin{1:nargin})]);
-    tic;
-end
     
 % Initialize empty return variable
 info = struct;
@@ -237,8 +231,3 @@ end
 
 % Clear temporary variables
 clear status cmdout arr i;
-
-% Log finish
-if exist('Event', 'file') == 2
-    Event(sprintf('Info extraction completed successfully in %0.3f seconds', toc));
-end
