@@ -238,7 +238,7 @@ end
 % Clear temporary variables
 clear status cmdout arr i;
 
-% Log start
+% Log finish
 if exist('Event', 'file') == 2
-    Event('Extraction completed successfully in %0.3f seconds', toc);
+    Event(sprintf('Extraction completed successfully in %0.3f seconds', toc));
 end
