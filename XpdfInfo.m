@@ -240,5 +240,5 @@ clear status cmdout arr i;
 
 % Log finish
 if exist('Event', 'file') == 2
-    Event(sprintf('Extraction completed successfully in %0.3f seconds', toc));
+    Event(sprintf('Info extraction completed successfully in %0.3f seconds', toc));
 end
