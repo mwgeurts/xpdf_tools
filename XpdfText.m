@@ -132,7 +132,7 @@ end
 % Clear temporary variables
 clear status tmpName fid tline i;
 
-% Log start
+% Log finish
 if exist('Event', 'file') == 2
-    Event(sprintf('Extraction completed successfully in %0.3f seconds', toc));
+    Event(sprintf('Text extraction completed successfully in %0.3f seconds', toc));
 end
