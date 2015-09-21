@@ -117,6 +117,9 @@ for i = 1:info.pages
                 tline = fgetl(fid);
             end
         end
+        
+        % Close file handle
+        fclose(fid);
 
     % Otherwise execution was unsuccessful
     else
