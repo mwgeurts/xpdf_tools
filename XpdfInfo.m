@@ -119,6 +119,7 @@ if status == 0
                     '\d+/\d+/\d+\s+\d+:\d+:\d+', 'ONCE'))
                 info.creationdate = datetime(arr{i}(17:end), 'InputFormat', ...
                     'dd/MM/yy HH:mm:ss');
+            end
             continue;
             
         % Otherwise, if line contains moddate
@@ -131,6 +132,7 @@ if status == 0
                     '\d+/\d+/\d+\s+\d+:\d+:\d+', 'ONCE'))
                 info.moddate = datetime(arr{i}(17:end), 'InputFormat', ...
                     'dd/MM/yy HH:mm:ss');
+            end
             continue;
         
         % Otherwise, if line contains tagged
