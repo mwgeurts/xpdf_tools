@@ -118,7 +118,7 @@ if status == 0
             elseif ~isempty(regexpi(arr{i}(17:end), ...
                     '\d+/\d+/\d+\s+\d+:\d+:\d+', 'ONCE'))
                 info.creationdate = datetime(arr{i}(17:end), 'InputFormat', ...
-                    'dd/MM/yy HH:mm:ss');
+                    'MM/dd/yy HH:mm:ss');
             end
             continue;
             
@@ -131,7 +131,7 @@ if status == 0
             elseif ~isempty(regexpi(arr{i}(17:end), ...
                     '\d+/\d+/\d+\s+\d+:\d+:\d+', 'ONCE'))
                 info.moddate = datetime(arr{i}(17:end), 'InputFormat', ...
-                    'dd/MM/yy HH:mm:ss');
+                    'MM/dd/yy HH:mm:ss');
             end
             continue;
         
