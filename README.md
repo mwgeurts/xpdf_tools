@@ -14,7 +14,7 @@ To install the Xpdf Extensions for MATLAB, copy all MATLAB .m files from this re
 
 ## Usage and Documentation
 
-Please see the [wiki](../../wiki) for basic usage and other documentation on using the Xpdf Extensions for MATLAB.  Note that the Xpdf utilities are not provided as part of this repository and must be separately [configured](../../wiki/Installation and Use) to work with these extensions.
+Please see the [wiki](../../wiki) for basic usage and other documentation on using the Xpdf Extensions for MATLAB.
 
 ## License
 
