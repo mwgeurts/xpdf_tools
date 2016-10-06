@@ -1,2 +1,3 @@
 *.m~
 .smbdelete*
+.DS_Store

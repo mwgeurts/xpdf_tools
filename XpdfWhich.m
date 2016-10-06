@@ -49,12 +49,15 @@ executable = '';
 
 % Declare additional paths to search within. The first column of this cell
 % array is the machine type (linux, mac, or win), and the second is the
-% path.  Paths can be absolute or relative.
+% path. Paths are relative to this function.
 paths = {
-    'linux'     '../xpdfbin-linux-3.04/bin64'
-    'mac'       '../xpdfbin-mac-3.04/bin64'
-    'win'       '../xpdfbin-win-3.04/bin64'
+    'linux'     'xpdfbin-linux-3.04/bin64'
+    'mac'       'xpdfbin-mac-3.04/bin64'
+    'win'       'xpdfbin-win-3.04/bin64'
 };
+
+% Determine path of current application
+[path, ~, ~] = fileparts(mfilename('fullpath'));
 
 %% Search System Path
 % If the system is unix-based
@@ -92,26 +95,26 @@ for i = 1:size(paths, 1)
    
     % If the system is linux and the command exists
     if strcmp(paths{i,1}, 'linux') && isunix && ~ismac && ...
-            exist(fullfile(paths{i,2}, command), 'file') == 2
+            exist(fullfile(path, paths{i,2}, command), 'file') == 2
             
         % Store path found and stop searching
-        executable = fullfile(paths{i,2}, command);
+        executable = fullfile(path, paths{i,2}, command);
         return;
         
     % Otherwise, if Mac
     elseif strcmp(paths{i,1}, 'mac') && ismac && ...
-            exist(fullfile(paths{i,2}, command), 'file') == 2
+            exist(fullfile(path, paths{i,2}, command), 'file') == 2
     
         % Store path found and stop searching
-        executable = fullfile(paths{i,2}, command);
+        executable = fullfile(path, paths{i,2}, command);
         return;
         
     % Otherwise, if Windows
     elseif strcmp(paths{i,1}, 'win') && ispc && ...
-            exist(fullfile(paths{i,2}, [command, '.exe']), 'file') == 2
+            exist(path, fullfile(paths{i,2}, [command, '.exe']), 'file') == 2
         
         % Store path found (with .exe appended) and stop searching
-        executable = fullfile(paths{i,2}, [command, '.exe']);
+        executable = fullfile(path, paths{i,2}, [command, '.exe']);
         return;
     end
 end
