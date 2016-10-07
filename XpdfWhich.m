@@ -59,6 +59,9 @@ paths = {
 % Determine path of current application
 [path, ~, ~] = fileparts(mfilename('fullpath'));
 
+% Add backslashes for any spaces
+path = strrep(path, ' ', '\ ');
+
 %% Search System Path
 % If the system is unix-based
 if isunix
