@@ -59,9 +59,6 @@ paths = {
 % Determine path of current application
 [path, ~, ~] = fileparts(mfilename('fullpath'));
 
-% Add backslashes for any spaces
-path = strrep(path, ' ', '\ ');
-
 %% Search System Path
 % If the system is unix-based
 if isunix
@@ -73,7 +70,7 @@ if isunix
     if status == 0 && ~isempty(cmdout)
         
         % Store path found and stop searching
-        executable = cmdout;
+        executable = strrep(cmdout, ' ', '\ ');
         return;
     end
     
@@ -88,7 +85,7 @@ elseif ispc
     if status == 0 && ~strcmp(cmdout(1:4), 'INFO')
         
         % Store path found and stop searching
-        executable = cmdout;
+        executable = strrep(cmdout, ' ', '\ ');
         return;
     end
 end
@@ -101,7 +98,8 @@ for i = 1:size(paths, 1)
             exist(fullfile(path, paths{i,2}, command), 'file') == 2
             
         % Store path found and stop searching
-        executable = fullfile(path, paths{i,2}, command);
+        executable = ...
+            strrep(fullfile(path, paths{i,2}, command), ' ', '\ ');
         return;
         
     % Otherwise, if Mac
@@ -109,7 +107,8 @@ for i = 1:size(paths, 1)
             exist(fullfile(path, paths{i,2}, command), 'file') == 2
     
         % Store path found and stop searching
-        executable = fullfile(path, paths{i,2}, command);
+        executable = ...
+            strrep(fullfile(path, paths{i,2}, command), ' ', '\ ');
         return;
         
     % Otherwise, if Windows
@@ -117,7 +116,8 @@ for i = 1:size(paths, 1)
             exist(path, fullfile(paths{i,2}, [command, '.exe']), 'file') == 2
         
         % Store path found (with .exe appended) and stop searching
-        executable = fullfile(path, paths{i,2}, [command, '.exe']);
+        executable = ...
+            strrep(fullfile(path, paths{i,2}, [command, '.exe']), ' ', '\ ');
         return;
     end
 end
