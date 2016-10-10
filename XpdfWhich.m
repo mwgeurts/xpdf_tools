@@ -116,8 +116,10 @@ for i = 1:size(paths, 1)
             exist(fullfile(path, paths{i,2}, [command, '.exe']), 'file') == 2
         
         % Store path found (with .exe appended) and stop searching
-        executable = ...
-            strrep(fullfile(path, paths{i,2}, [command, '.exe']), ' ', '\ ');
+        executable = fullfile(path, paths{i,2}, [command, '.exe']);
+        if ~isempty(strfind(executable, ' '))
+            executable = ['"', executable, '"']; %#ok<AGROW>
+        end
         return;
     end
 end
